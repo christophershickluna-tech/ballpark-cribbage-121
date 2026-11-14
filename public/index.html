@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+ <meta name="theme-color" content="#102d28"><meta name="description" content="Baseball-themed online two-player cribbage. Share a room code, play with Cleveland and Detroit franchise decks, and race to the World Series trophy at 121.">
+ <link rel="icon" type="image/png" href="/icon-192.png"><link rel="manifest" href="/manifest.webmanifest"><link rel="stylesheet" href="/styles.css">
+ <title>Ballpark Cribbage 121 · Online Multiplayer</title>
+</head>
+<body>
+ <div class="app">
+  <header class="topbar">
+   <div class="brand"><div class="brand-icon">⚾</div><div><div class="eyebrow">THE BALLPARK TABLE · LIVE ONLINE</div><h1>Ballpark Cribbage <em>121</em></h1></div></div>
+   <nav class="top-actions"><span id="netBadge" class="net-badge">● Ready</span><button id="rulesBtn" class="button subtle">How to play</button><button id="lobbyBtn" class="button subtle hidden">Lobby</button></nav>
+  </header>
+  <main>
+   <section class="lobby panel" id="lobby" aria-label="Create or join a cribbage game">
+    <div class="lobby-art"><div class="art-label">THE BALLPARK</div><div class="art-cards"><span>⚾</span><span>🏟️</span><span>🏆</span></div><div class="art-number">121</div><p>One bullpen. Two franchises.<br>One World Series trophy.</p></div>
+    <div class="lobby-form"><div class="eyebrow gold">TWO MANAGERS · TWO DEVICES</div><h2>Step into the ballpark.</h2><p>Play a complete game of traditional cribbage in a baseball-stadium presentation. Cleveland-themed cards appear for player one, Detroit-themed cards for player two, while the server keeps hands private and scoring automatic.</p>
+     <label for="playerName">Your name</label><input id="playerName" maxlength="24" placeholder="Enter your name" autocomplete="nickname">
+     <button class="button primary big" id="createBtn">Create a private table <span aria-hidden="true">→</span></button>
+     <div class="join-divider"><span>OR JOIN A FRIEND</span></div>
+     <div class="join-form"><input id="roomCode" maxlength="6" placeholder="6-letter room code" autocapitalize="characters" aria-label="Room code"><button class="button outlined" id="joinBtn">Join table</button></div>
+     <button id="resumeBtn" class="resume hidden">Rejoin your previous table →</button>
+     <p class="lobby-foot">No signup · Private card hands · Baseball stadium theme</p>
+    </div>
+   </section>
+   <section class="waiting panel hidden" id="waiting">
+     <div class="wait-emblem">♣</div><div class="eyebrow gold">CLUBHOUSE OPEN · OPPONENT NEEDED</div><h2>Invite the visiting team</h2>
+     <p>Share this six-character code or send the invite link. The game starts automatically once your opponent enters the ballpark.</p>
+     <div class="invite-code" id="waitCode">------</div>
+     <div class="invite-controls"><button class="button primary" id="copyInviteBtn">Copy invite link</button><button class="button outlined" id="copyCodeBtn">Copy code</button></div>
+     <p id="publicHint" class="hint"></p><div class="status-pulse"><span></span> Waiting for the visiting team to enter…</div>
+   </section>
+   <section id="game" class="hidden game-layout" aria-label="Online cribbage game">
+    <div class="main-col">
+     <section class="panel board"><div class="panel-heading"><div><div class="eyebrow">STADIUM TRACK</div><h2>Race to the World Series trophy</h2></div><span id="roomLabel" class="room-label">ROOM ------</span></div><div id="boardSlots"></div><p class="board-foot">The lead marker tracks your current score around the stadium track; the trailing marker shows your previous spot.</p></section>
+     <section class="panel felt"><div class="table-status"><div><div class="eyebrow gold" id="handLabel">HAND 1</div><h2 id="statusTitle">Your move</h2><p id="statusText"></p></div><div class="round-badge" id="phaseLabel">DISCARD</div></div>
+       <div class="felt-table"><div><span class="table-label">STARTER CARD</span><div id="starterSlot"></div></div><div class="sequence-container"><span class="table-label">PEGGING TABLE <span id="seqHint"></span></span><div id="sequence" class="played-cards"></div><div id="oldSequence" class="sequence-note"></div></div><div class="count-display"><small>RUNNING<br>COUNT</small><strong id="runningCount">0</strong><span>/ 31</span></div></div>
+       <div class="crib-line"><span>DEALER'S CRIB / BULLPEN</span><span id="cribStatus">4 cards after discards</span></div>
+     </section>
+     <section class="panel cards-panel"><div class="hand-top"><div><div class="eyebrow">YOUR FRANCHISE LINEUP</div><h2 id="myHandTitle">Your cards</h2></div><span id="handInfo" class="hand-badge"></span></div><div class="hand-cards" id="myCards"></div><div class="opponent-bar"><span>Opponent's dugout</span><div id="opponentCards" class="back-cards"></div></div><div class="theme-tags"><span id="myThemeTag" class="theme-tag">Cleveland Indians / Guardians History</span><span id="oppThemeTag" class="theme-tag">Detroit Tigers Franchise History</span></div></section>
+     <section class="panel action-panel"><div class="action-top"><div><div class="eyebrow gold" id="actionEyebrow">YOUR NEXT MOVE</div><h2 id="actionTitle">Choose a card</h2><p id="actionText"></p></div><div id="actionIndicator" class="action-icon">♣</div></div><div id="showPreview" class="hidden"></div><button id="mainAction" class="button primary big hidden">Continue</button></section>
+    </div>
+    <aside class="side-col">
+     <section class="panel side-panel"><div class="side-heading"><h3>Pennant race</h3><span class="live-tag">LIVE</span></div><div id="scores"></div><div class="share-row"><div><strong>Private clubhouse <span id="miniCode"></span></strong><small>Send the other franchise an invite</small></div><button class="button outlined" id="shareBtn">Share</button></div></section>
+     <section class="panel side-panel"><div class="side-heading"><h3>Broadcast log</h3><span class="muted">Latest first</span></div><div id="eventsLog" class="game-log" aria-live="polite"></div></section>
+     <section class="panel side-panel rules-mini"><div class="side-heading"><h3>Ballpark rules</h3></div><p><b>During the at-bat:</b> 15 = 2, 31 = 2, pair = 2, three alike = 6, four alike = 12, runs = their length. Go/last card = 1 unless it makes 31.</p><p><b>During the box score:</b> score fifteens, pairs, runs, flush and his nobs. Non-dealer first, then dealer, then crib.</p><button id="fullRulesBtn" class="text-button">See all the rules →</button></section>
+    </aside>
+   </section>
+  </main>
+  <footer>Ballpark Cribbage 121 · Classic two-player rules · First to 121 wins the trophy<br>Unofficial fan-made tribute. Not affiliated with MLB, the Cleveland Guardians, or the Detroit Tigers. Player art is interpretive and does not claim to depict verified historical likenesses.</footer>
+ </div>
+ <div class="modal-backdrop hidden" id="rulesModal" role="dialog" aria-modal="true" aria-labelledby="rulesTitle"><div class="modal"><button class="close" id="closeRules" aria-label="Close rules">×</button><div class="eyebrow gold">BALLPARK EDITION · HOYLE-STYLE TWO-PLAYER CRIBBAGE</div><h2 id="rulesTitle">How to play</h2><div class="rule-content"><p><b>Objective.</b> First to reach or pass 121 points wins immediately. If the losing player has fewer than 91, it's a skunk.</p><p><b>First deal.</b> Both players cut; the lower card deals first (ties recut). The deal alternates each hand, beginning with the non-dealer. Each player receives six cards, discards two into the dealer's four-card crib, and the non-dealer cuts a starter. A starter Jack scores two for the dealer (“his heels”). The visual baseball theme does not change the rules of play.</p><p><b>Pegging.</b> The non-dealer leads. Players alternate one card at a time; A = 1, faces = 10. The total never exceeds 31. Score 15 = 2, 31 = 2, pairs = 2/6/12 for two/three/four alike in succession, and runs of 3+ in any order. If you cannot legally play, say Go. Your opponent plays any cards that fit, taking 1 for the last card of the sequence (or 2 for 31, not both). Restart from zero, led by the player who did not play last if they have cards. The very last card of all pegging also scores 1 unless it made 31.</p><p><b>Counting.</b> After all eight pegging cards, count the non-dealer's four cards plus the starter, then dealer's, then dealer's crib. Fifteens score 2 each; pairs 2 each; longest runs score their total length including duplicates; a flush is 4 for all four hand cards of one suit, or 5 with matching starter. A crib flush counts only when all five cards match. A Jack in the hand or crib matching the starter's suit earns 1 (“his nobs”).</p><p><b>Online scoring.</b> The server deals, checks legal moves, and calculates every point automatically. Manual muggins claims are not part of this assisted-scoring version.</p></div></div></div>
+ <div id="toast" role="status" class="toast hidden"></div>
+ <script defer src="/app.js"></script>
+</body>
+</html>

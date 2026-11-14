@@ -1,0 +1,23 @@
+{
+  "id": "/",
+  "name": "Ballpark Cribbage 121 \u2014 Cleveland vs Detroit",
+  "short_name": "Ballpark 121",
+  "description": "Online two-player cribbage in a baseball stadium. Cleveland and Detroit historical card decks, diamond-shaped pegboard and World Series trophy finish.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0d2732",
+  "theme_color": "#143a3b",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

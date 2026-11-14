@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: ballpark-cribbage-121
+    runtime: node
+    plan: free
+    numInstances: 1
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      # Rooms are stored on ephemeral disk in the free plan; game sessions
+      # may be lost on restart or redeploy. For durable matches, upgrade
+      # to a suitable paid plan with persistent storage and set DATA_FILE.

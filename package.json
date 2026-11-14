@@ -1,0 +1,11 @@
+{
+  "name": "cribbage-121-online",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Two-player online Hoyle-style cribbage with private cards and live room codes",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/*.test.js"
+  }
+}
